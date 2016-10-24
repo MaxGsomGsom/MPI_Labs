@@ -7,7 +7,7 @@
 # Macros
 TOP=`pwd`
 CND_PLATFORM=mpich2-Linux-x86
-CND_CONF=Debug_2
+CND_CONF=Debug_3
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 CND_DLIB_EXT=so

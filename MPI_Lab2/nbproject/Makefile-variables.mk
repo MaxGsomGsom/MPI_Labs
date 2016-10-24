@@ -30,14 +30,14 @@ CND_ARTIFACT_PATH_Debug_10=dist/Debug_10/mpich2-Linux-x86/mpi_lab2
 CND_PACKAGE_DIR_Debug_10=dist/Debug_10/mpich2-Linux-x86/package
 CND_PACKAGE_NAME_Debug_10=mpilab2.tar
 CND_PACKAGE_PATH_Debug_10=dist/Debug_10/mpich2-Linux-x86/package/mpilab2.tar
-# Debug_2 configuration
-CND_PLATFORM_Debug_2=mpich2-Linux-x86
-CND_ARTIFACT_DIR_Debug_2=dist/Debug_2/mpich2-Linux-x86
-CND_ARTIFACT_NAME_Debug_2=mpi_lab2
-CND_ARTIFACT_PATH_Debug_2=dist/Debug_2/mpich2-Linux-x86/mpi_lab2
-CND_PACKAGE_DIR_Debug_2=dist/Debug_2/mpich2-Linux-x86/package
-CND_PACKAGE_NAME_Debug_2=mpilab2.tar
-CND_PACKAGE_PATH_Debug_2=dist/Debug_2/mpich2-Linux-x86/package/mpilab2.tar
+# Debug_3 configuration
+CND_PLATFORM_Debug_3=mpich2-Linux-x86
+CND_ARTIFACT_DIR_Debug_3=dist/Debug_3/mpich2-Linux-x86
+CND_ARTIFACT_NAME_Debug_3=mpi_lab2
+CND_ARTIFACT_PATH_Debug_3=dist/Debug_3/mpich2-Linux-x86/mpi_lab2
+CND_PACKAGE_DIR_Debug_3=dist/Debug_3/mpich2-Linux-x86/package
+CND_PACKAGE_NAME_Debug_3=mpilab2.tar
+CND_PACKAGE_PATH_Debug_3=dist/Debug_3/mpich2-Linux-x86/package/mpilab2.tar
 # Debug_100 configuration
 CND_PLATFORM_Debug_100=mpich2-Linux-x86
 CND_ARTIFACT_DIR_Debug_100=dist/Debug_100/mpich2-Linux-x86

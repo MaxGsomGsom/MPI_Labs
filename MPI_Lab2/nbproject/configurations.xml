@@ -73,7 +73,7 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
-    <conf name="Debug_2" type="1">
+    <conf name="Debug_3" type="1">
       <toolsSet>
         <compilerSet>mpich2|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>

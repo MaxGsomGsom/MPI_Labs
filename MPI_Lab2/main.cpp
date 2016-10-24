@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <time.h>
 
 //tags for send/receive
 
@@ -71,23 +72,22 @@ void SecondaryProcessesFunc(int mpi_rank, int mpi_size) {
     int shiftSize;
     MPI_Recv(&shiftSize, 1, MPI_INT, 0, shiftSizeTag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-
+    
     //last process sends shift elems 
     if (mpi_rank == (mpi_size - 1))
         MPI_Send(&(array[sizePerProcess - shiftSize]), shiftSize, MPI_INT, 1, shiftTag, MPI_COMM_WORLD);
+    //all processes except last send shift elems to next process
+    else 
+        MPI_Send(&(array[sizePerProcess - shiftSize]), shiftSize, MPI_INT, mpi_rank + 1, shiftTag, MPI_COMM_WORLD);
 
-    //processes step by step receives shift elems from previous process
+    //processes receive shift elems from previous process
     int* newElements = new int[shiftSize];
     if (mpi_rank == 1)
         MPI_Recv(newElements, sizePerProcess, MPI_INT, mpi_size - 1, shiftTag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     else
         MPI_Recv(newElements, sizePerProcess, MPI_INT, mpi_rank - 1, shiftTag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
-    //all processes except last send shift elems to next process
-    if (mpi_rank < (mpi_size - 1))
-        MPI_Send(&(array[sizePerProcess - shiftSize]), shiftSize, MPI_INT, mpi_rank + 1, shiftTag, MPI_COMM_WORLD);
-
-
+    
     usleep(mpi_rank * 10000);
 
     printf("\n==========================================================\n");
@@ -115,6 +115,8 @@ int main(int argc, char* argv[]) {
 
     if (mpi_size < 3)
         return 0;
+    
+    srand(time(NULL)+mpi_rank);
 
     //main process
     if (mpi_rank == 0) {
