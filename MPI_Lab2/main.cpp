@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <time.h>
+#include <iostream>
+#include <sstream> 
 
 //tags for send/receive
 
@@ -57,6 +59,8 @@ void MainProcessFunc(int mpi_rank, int mpi_size) {
 	for (int i = 1; i < mpi_size; i++) {
 		MPI_Send(&shiftSize, 1, MPI_INT, i, shiftSizeTag, MPI_COMM_WORLD);
 	}
+	
+	MPI_Barrier(MPI_COMM_WORLD);
 }
 
 void SecondaryProcessesFunc(int mpi_rank, int mpi_size) {
@@ -88,23 +92,27 @@ void SecondaryProcessesFunc(int mpi_rank, int mpi_size) {
 	MPI_Recv(newElements, sizePerProcess, MPI_INT, mpi_rank - 1, shiftTag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
 	
-	//sleep(mpi_rank);
-
-	printf("\n==========================================================\n");
-	printf("Process rank = %d\n", mpi_rank);
-	printf("Before shift: ");
+	
+	std::stringstream ss;
+	ss << "\n==========================================================";
+	ss << "\nProcess rank = " << mpi_rank;
+	ss << "\nBefore shift: ";
 	for (int i = 0; i < sizePerProcess; i++) {
-		printf("%d-", array[i]);
+		ss << array[i] << "-";
 	}
 
 	//shift elems
 	ShiftArrayFunc(sizePerProcess, shiftSize, array, newElements);
 	
 
-	printf("\nAfter shift: ");
+	ss << "\nAfter shift: ";
 	for (int i = 0; i < sizePerProcess; i++) {
-		printf("%d-", array[i]);
+		ss << array[i] << "-";
 	}
+	
+	MPI_Barrier(MPI_COMM_WORLD);
+	usleep(mpi_rank*100);
+	std::cout << ss.str();
 }
 
 int main(int argc, char* argv[]) {
