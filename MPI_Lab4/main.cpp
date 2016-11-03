@@ -15,8 +15,16 @@ int main(int argc, char* argv[]) {
 
     srand(1); //for generating same values every time
     
-    int sizePerProcess = 40000000;
-    int sizeFull = mpi_size * sizePerProcess;
+    long sizePerProcess=20000000;
+    
+    //if (mpi_rank==0) {
+    //    std::cout << "=================";
+    //    std::cout << "\nEnter size of array per process:\n";
+    //    std::cin >> sizePerProcess;
+    //}
+    //MPI_Bcast(&sizePerProcess, 1, MPI_LONG, 0, MPI_COMM_WORLD);
+    
+    long sizeFull = mpi_size * sizePerProcess;
 
     int* arrFull; //full array
     int* arrPart = new int[sizePerProcess]; //part of array per process
@@ -29,12 +37,12 @@ int main(int argc, char* argv[]) {
         sums = new long[mpi_size];
 
         //generating full array
-        for (int i = 0; i < sizeFull; i++) {
+        for (long i = 0; i < sizeFull; i++) {
             arrFull[i] = rand();
         }
         
 
-        std::cout << "=================";
+        std::cout << "\n=================";
         std::cout << "\nArray size = " << sizeFull;
         std::cout << "\nProcesses count = " << mpi_size;
         std::cout << "\nArray size per process = " << sizePerProcess;
@@ -49,7 +57,7 @@ int main(int argc, char* argv[]) {
     MPI_Scatter(arrFull, sizePerProcess, MPI_INT, arrPart, sizePerProcess, MPI_INT, 0, MPI_COMM_WORLD);
     
     //sum of partial array
-    for (int i = 0; i < sizePerProcess; i++) {
+    for (long i = 0; i < sizePerProcess; i++) {
         sumPart+=arrPart[i];
     }
     
@@ -72,7 +80,7 @@ int main(int argc, char* argv[]) {
         
         //calc sum with 1 process for test
         long test = 0;
-        for (int i = 0; i < sizeFull; i++) {
+        for (long i = 0; i < sizeFull; i++) {
             test+=arrFull[i];
         }
         std::cout << "\n=================";
@@ -80,7 +88,7 @@ int main(int argc, char* argv[]) {
         std::cout << "\nSum = " << test;
         
         printf("\nTime taken: %.4fs", (double) (clock() - tStart) / CLOCKS_PER_SEC);
-        std::cout << "\n=================";
+        std::cout << "\n=================\n";
 
     }
     
