@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
 
     int data_size = 100;
-    int pop_push_count = mpi_size + 2-8; //how many elements generate for test
+    int pop_push_count = mpi_size + 2; //how many elements generate for test
 
     FIFO* buffer = new FIFO(data_size);
 
